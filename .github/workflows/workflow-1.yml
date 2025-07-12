@@ -17,15 +17,63 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18
-    
+
+  Install-Dependencies:
+    runs-on: ubuntu-latest
+    needs: Code-Checkout
+    steps:
+    - name: Code Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js env
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
     - name: Install Dependencies
       run: npm ci
 
+  Linting-Stage:
+    runs-on: ubuntu-latest
+    needs: Install-Dependencies
+    steps:
+    - name: Code Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js env
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+          
     - name: Run Lint
       run: npm run lint
 
+  Testing-Stage:
+    runs-on: ubuntu-latest
+    needs: Linting-Stage
+    steps:
+    - name: Code Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js env
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
     - name: Run Tests
       run: npm run test
-    
+
+  Build-Stage:
+    runs-on: ubuntu-latest
+    needs: Testing-Stage
+    steps:
+    - name: Code Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js env
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
     - name: Build Stage
       run: npm run build
