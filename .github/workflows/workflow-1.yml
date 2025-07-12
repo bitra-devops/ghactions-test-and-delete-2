@@ -45,7 +45,7 @@ jobs:
           name: npm_ci-dependencies
 
       - name: Move node_modules to root
-        run: mv npm_ci-dependencies/node_modules ./
+        run: mv npm_ci-dependencies/* ./
 
       - name: Run Lint
         run: npm run lint
@@ -68,7 +68,7 @@ jobs:
           name: npm_ci-dependencies
 
       - name: Move node_modules to root
-        run: mv npm_ci-dependencies/node_modules ./
+        run: mv npm_ci-dependencies/* ./
 
       - name: Run Tests
         run: npm run test
@@ -91,7 +91,7 @@ jobs:
           name: npm_ci-dependencies
 
       - name: Move node_modules to root
-        run: mv npm_ci-dependencies/node_modules ./
+        run: mv npm_ci-dependencies/* ./
 
       - name: Build Stage
         run: npm run build
