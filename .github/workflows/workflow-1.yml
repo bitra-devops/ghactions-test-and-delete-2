@@ -50,7 +50,13 @@ jobs:
       - name: Move node_modules into place
         run: |
           rm -rf node_modules
-          mv npm_ci-dependencies node_modules
+          mv npm_ci-dependencies/node_modules .
+
+
+#      - name: Move node_modules into place
+#        run: |
+#          rm -rf node_modules
+#          mv npm_ci-dependencies node_modules
 
       - name: Verify downloaded node_modules
         run: ls -l 
@@ -82,6 +88,11 @@ jobs:
           name: npm_ci-dependencies
 #          path: node_modules/
 
+      - name: Move node_modules into place
+        run: |
+          rm -rf node_modules
+          mv npm_ci-dependencies/node_modules .
+
       - name: Verify downloaded node_modules
         run: ls -l node_modules/
 
@@ -109,6 +120,11 @@ jobs:
           name: npm_ci-dependencies
 #          path: node_modules/
 
+      - name: Move node_modules into place
+        run: |
+          rm -rf node_modules
+          mv npm_ci-dependencies/node_modules .
+          
       - name: Verify downloaded node_modules
         run: ls -l node_modules/
 
