@@ -50,8 +50,11 @@ jobs:
       - name: Verify downloaded node_modules
         run: ls -l 
 
-#      - name: Add node_modules/.bin to PATH
-#        run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
+      - name: Add node_modules/.bin to PATH
+        run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
+
+      - name: Check ESLint exists
+        run: ls -l node_modules/.bin/eslint
 
       - name: Run Lint
         run: npm run lint
