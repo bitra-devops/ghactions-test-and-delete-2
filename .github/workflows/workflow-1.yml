@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: npm_ci-dependencies
-          path: node_modules
+          path: node_modules/
 
   Linting-Stage:
     runs-on: ubuntu-latest
@@ -46,10 +46,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: npm_ci-dependencies
-          path: ./node_modules
+          path: node_modules/
 
       - name: Verify downloaded node_modules
-        run: ls -l ./node_modules
+        run: ls -l node_modules/
 
       - name: Add node_modules/.bin to PATH
         run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
@@ -73,10 +73,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: npm_ci-dependencies
-          path: ./node_modules
+          path: node_modules/
 
       - name: Verify downloaded node_modules
-        run: ls -l ./node_modules
+        run: ls -l node_modules/
 
       - name: Add node_modules/.bin to PATH
         run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
@@ -100,10 +100,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: npm_ci-dependencies
-          path: ./node_modules
+          path: node_modules/
 
       - name: Verify downloaded node_modules
-        run: ls -l ./node_modules
+        run: ls -l node_modules/
 
       - name: Add node_modules/.bin to PATH
         run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
