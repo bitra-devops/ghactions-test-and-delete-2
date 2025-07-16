@@ -18,6 +18,15 @@ jobs:
         with:
           node-version: 18
 
+      - name: Cache node_modules and npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+#            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install Dependencies
         run: npm ci
 
@@ -41,6 +50,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+
+      - name: Cache node_modules and npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+#            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Download node_modules
         uses: actions/download-artifact@v4
@@ -69,6 +87,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+
+      - name: Cache node_modules and npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+#            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
 
       - name: Download node_modules
         uses: actions/download-artifact@v4
@@ -103,6 +131,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+
+      - name: Cache node_modules and npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+#            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Download node_modules
         uses: actions/download-artifact@v4
