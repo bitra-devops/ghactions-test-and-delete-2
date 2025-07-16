@@ -21,14 +21,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: List node_modules contents
-        run: ls -l node_modules
-
       - name: Tar node_modules
         run: tar -czf node_modules.tar.gz node_modules
-
-      - name: List tar file
-        run: ls -l | grep 'tar.gz'
 
       - name: Upload node_modules
         uses: actions/upload-artifact@v4
@@ -53,103 +47,79 @@ jobs:
         with:
           name: npm_ci-dependencies
 
-      - name: List node_modules contents
-        run: ls -l | egrep 'node_modules|npm_ci-dependencies'
+      - name: Extract node_modules
+        run: |
+          tar -xzf node_modules.tar.gz
+          rm -rf node_modules.tar.gz
+
+      - name: Add node_modules/.bin to PATH
+        run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
+
+      - name: Run Lint
+        run: npm run lint
+
+  Testing-Stage:
+    runs-on: ubuntu-latest
+    needs: Linting-Stage
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js env
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Download node_modules
+        uses: actions/download-artifact@v4
+        with:
+          name: npm_ci-dependencies
 
       - name: Extract node_modules
         run: |
           tar -xzf node_modules.tar.gz
           rm -rf node_modules.tar.gz
 
-      - name: List all contents
-        run: ls
-
-      - name: List node_modules contents after untar
-        run: ls -l | egrep 'node_modules|npm_ci-dependencies'
-
-#      - name: Move node_modules into place
-#        run: |
-#          rm -rf node_modules
-#          mv npm_ci-dependencies/node_modules .
-
-
-#      - name: Move node_modules into place
-#        run: |
-#          rm -rf node_modules
-#          mv npm_ci-dependencies node_modules
+      - name: Add node_modules/.bin to PATH
+        run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
 
       - name: Verify downloaded node_modules
-        run: ls -l 
+        run: ls -l node_modules/
 
       - name: Add node_modules/.bin to PATH
         run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
 
-      - name: Check ESLint exists
-        run: ls -l node_modules/.bin/eslint
+      - name: Run Tests
+        run: npm run test
 
-      - name: Run Lint
-        run: npm run lint
+  Build-Stage:
+    runs-on: ubuntu-latest
+    needs: Testing-Stage
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
 
-#   Testing-Stage:
-#     runs-on: ubuntu-latest
-#     needs: Linting-Stage
-#     steps:
-#       - name: Code Checkout
-#         uses: actions/checkout@v3
+      - name: Setup Node.js env
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-#       - name: Setup Node.js env
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 18
+      - name: Download node_modules
+        uses: actions/download-artifact@v4
+        with:
+          name: npm_ci-dependencies
 
-#       - name: Download node_modules
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: npm_ci-dependencies
-# #          path: node_modules/
 
-#       - name: Move node_modules into place
-#         run: |
-#           rm -rf node_modules
-#           mv npm_ci-dependencies/node_modules .
+      - name: Extract node_modules
+        run: |
+          tar -xzf node_modules.tar.gz
+          rm -rf node_modules.tar.gz
 
-#       - name: Verify downloaded node_modules
-#         run: ls -l node_modules/
+      - name: Verify downloaded node_modules
+        run: ls -l node_modules/
 
-#       - name: Add node_modules/.bin to PATH
-#         run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
+      - name: Add node_modules/.bin to PATH
+        run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
 
-#       - name: Run Tests
-#         run: npm run test
-
-#   Build-Stage:
-#     runs-on: ubuntu-latest
-#     needs: Testing-Stage
-#     steps:
-#       - name: Code Checkout
-#         uses: actions/checkout@v3
-
-#       - name: Setup Node.js env
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 18
-
-#       - name: Download node_modules
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: npm_ci-dependencies
-# #          path: node_modules/
-
-#       - name: Move node_modules into place
-#         run: |
-#           rm -rf node_modules
-#           mv npm_ci-dependencies/node_modules .
-
-#       - name: Verify downloaded node_modules
-#         run: ls -l node_modules/
-
-#       - name: Add node_modules/.bin to PATH
-#         run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
-
-#       - name: Build Stage
-#         run: npm run build
+      - name: Build Stage
+        run: npm run build
