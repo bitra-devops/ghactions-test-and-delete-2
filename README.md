@@ -3,11 +3,11 @@
 This workflow demonstrates how to cache and reuse node_modules between jobs in GitHub Actions without needing to reinstall dependencies every time via npm ci.
 
 ✅ Why this approach?
-Avoids redundant npm ci execution in every job.
+ -> Avoids redundant npm ci execution in every job.
 
-Ensures consistency of dependencies across jobs (e.g., lint, test, build).
+ -> Ensures consistency of dependencies across jobs (e.g., lint, test, build).
 
-Works around limitations of actions/upload-artifact not preserving file permissions well for binary files.
+ -> Works around limitations of actions/upload-artifact not preserving file permissions well for binary files.
 
 📁 Workflow Overview
 
