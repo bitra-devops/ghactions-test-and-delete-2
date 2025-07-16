@@ -19,10 +19,11 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+ 
 🧱 Job 1: Install Dependencies
-yaml
-Copy
-Edit
+
   Install-Dependencies:
     runs-on: ubuntu-latest
     steps:
