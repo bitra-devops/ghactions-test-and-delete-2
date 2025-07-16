@@ -22,7 +22,7 @@ on:
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
  
 🧱 Job 1: Install Dependencies
-
+```yaml
   Install-Dependencies:
     runs-on: ubuntu-latest
     steps:
@@ -40,11 +40,13 @@ on:
         with:
           name: npm_ci-dependencies
           path: node_modules.tar.gz
+```
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 📏 Job 2: Linting
 
+```yaml
   Linting-Stage:
     runs-on: ubuntu-latest
     needs: Install-Dependencies
@@ -65,12 +67,13 @@ on:
       - run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
 
       - run: npm run lint
-     
+```     
      
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 🧪 Job 3: Testing
 
+```yaml
   Testing-Stage:
     runs-on: ubuntu-latest
     needs: Linting-Stage
@@ -90,10 +93,13 @@ on:
 
       - run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
       - run: npm run test
+```
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 🏗️ Job 4: Build
+
+```yaml
   Build-Stage:
     runs-on: ubuntu-latest
     needs: Testing-Stage
@@ -113,6 +119,7 @@ on:
 
       - run: echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
       - run: npm run build
+```
 
 🧠 Notes
 -> We tar the node_modules directory after npm ci to preserve file structure and permissions.
