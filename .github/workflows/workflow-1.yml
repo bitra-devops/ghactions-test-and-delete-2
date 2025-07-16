@@ -58,7 +58,7 @@ jobs:
 
       - name: Extract node_modules
         run: |
-          tar -xzf npm_ci-dependencies/node_modules.tar.gz
+          tar -xzf node_modules.tar.gz
           rm -rf node_modules.tar.gz
 
       - name: List all contents
